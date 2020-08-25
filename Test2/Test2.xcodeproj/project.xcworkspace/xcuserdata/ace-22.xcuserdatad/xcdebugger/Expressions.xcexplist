@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "GLOBAL">
+         <PersistentStrings>
+            <PersistentString
+               value = "*((int*)0x000000010050f850)">
+            </PersistentString>
+            <PersistentString
+               value = "*((int*) 0x0000000100505f40)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "func():main.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "SPtr&lt;Object&gt;::~SPtr():main.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Box::push(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;):main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "*((int*)0x000000010050f850)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

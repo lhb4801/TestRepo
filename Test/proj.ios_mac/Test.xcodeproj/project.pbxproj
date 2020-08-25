@@ -17,10 +17,10 @@
 		1AF87B8B1F6F782A007BE51C /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1AF87B5E1F6F77D6007BE51C /* RootViewController.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		2634B4D224E6287300F4B7A3 /* SpriteManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2634B4D024E6287300F4B7A3 /* SpriteManager.cpp */; };
-		2634B4D324E6287300F4B7A3 /* SpriteManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2634B4D024E6287300F4B7A3 /* SpriteManager.cpp */; };
 		268E03BF24E52F4500EE9B9A /* image in Resources */ = {isa = PBXBuildFile; fileRef = 268E03BD24E52F4500EE9B9A /* image */; };
 		268E03C024E52F4500EE9B9A /* image in Resources */ = {isa = PBXBuildFile; fileRef = 268E03BD24E52F4500EE9B9A /* image */; };
+		26E10BAD24EF4D5100712445 /* ClippingScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26E10BAB24EF4D5100712445 /* ClippingScrollView.cpp */; };
+		26E10BAE24EF4D5100712445 /* ClippingScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26E10BAB24EF4D5100712445 /* ClippingScrollView.cpp */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D631D0D56D500F7F5D4 /* CoreText.framework */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
@@ -109,9 +109,9 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Test-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2634B4CC24E625F000F4B7A3 /* SpriteManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpriteManager.h; sourceTree = "<group>"; };
-		2634B4D024E6287300F4B7A3 /* SpriteManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteManager.cpp; sourceTree = "<group>"; };
 		268E03BD24E52F4500EE9B9A /* image */ = {isa = PBXFileReference; lastKnownFileType = folder; path = image; sourceTree = "<group>"; };
+		26E10BAB24EF4D5100712445 /* ClippingScrollView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ClippingScrollView.cpp; sourceTree = "<group>"; };
+		26E10BAF24EF4D9A00712445 /* ClippingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClippingScrollView.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		294D0D631D0D56D500F7F5D4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
@@ -281,8 +281,8 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
-				2634B4CC24E625F000F4B7A3 /* SpriteManager.h */,
-				2634B4D024E6287300F4B7A3 /* SpriteManager.cpp */,
+				26E10BAB24EF4D5100712445 /* ClippingScrollView.cpp */,
+				26E10BAF24EF4D9A00712445 /* ClippingScrollView.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -440,8 +440,8 @@
 				1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */,
 				1AF87B8B1F6F782A007BE51C /* RootViewController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				26E10BAD24EF4D5100712445 /* ClippingScrollView.cpp in Sources */,
 				1AF87B8A1F6F7822007BE51C /* main.m in Sources */,
-				2634B4D224E6287300F4B7A3 /* SpriteManager.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,10 +450,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2634B4D324E6287300F4B7A3 /* SpriteManager.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				26E10BAE24EF4D5100712445 /* ClippingScrollView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,12 +10,14 @@
 #include <vector>
 #include <memory>
 
+
 template<typename T>
 class SPtr
 {
+    
 private:
-    T* obj_;
-    int* count_;
+    T* obj_ = nullptr;
+    int* count_ = nullptr;
     
 public:
     template<typename... Ts>
@@ -23,21 +25,53 @@ public:
     {
         this->obj_ = new T(params...);
     }
+    
+    
+public:
     inline void getCount() { std::cout << "참조 카운트 : " << *count_ << std::endl; }
+    inline T* operator->() { return obj_; }
+    inline T& operator*() { return *obj_; }
     
 public:
     SPtr operator=(SPtr param)
     {
+        if(obj_)
+        {
+            release();
+        }
+        
         obj_ = param.obj_;
         count_ = param.count_;
         ++*param.count_;
         return *this;
     }
-    inline T* operator->() { return obj_; }
-    inline T& operator*() { return *obj_; }
+    
     
 public:
-    inline SPtr(T* p = nullptr) : obj_(p) { count_ = new int(1); }
+    void release()
+    {
+        if (--(*count_) == 0)
+        {
+            if(obj_)
+            {
+                delete obj_;
+                obj_ = nullptr;
+            }
+                
+            if(count_)
+            {
+                delete count_;
+                count_ = nullptr;
+            }
+        }
+    }
+    
+public:
+    SPtr(T* p = nullptr)
+    : obj_(p)
+    {
+        count_ = new int(1);
+    }
     SPtr(const SPtr& copy)
     {
         obj_ = copy.obj_;
@@ -46,14 +80,10 @@ public:
     }
     ~SPtr()
     {
-        if (--(*count_) == 0)
-        {
-            delete obj_;
-            delete count_;
-        }
+        release();
     }
 };
-
+    
 class Object
 {
 private:
@@ -65,6 +95,26 @@ public:
     inline ~Object() {}
 };
 
+    class DjTest
+    {
+        DjTest()
+        {
+            
+        }
+        
+        DjTest(DjTest& other)
+        {
+            
+        }
+        
+        DjTest(DjTest&& other)
+        {
+            
+        }
+    };
+    
+using namespace std;
+    
 class Box
 {
 private:
@@ -73,6 +123,9 @@ public:
     void push(std::string name)
     {
         std::cout << name << "을 Box에 Push" << std::endl;
+        
+        std::shared_ptr<int> pPtr = make_shared<int>();
+        
         SPtr<Object> obj;
         obj.make_SPtr<Object>(name);
         contents_.push_back(obj);
@@ -97,13 +150,28 @@ public:
     }
 };
 
-
-int main(int argc, const char * argv[]) {
+    
+    
+void func()
+{
+    int a = 0;
+    
+    int& b = a;
+    int&& c = 10;
+    
     Box box;
     
     box.push("Apple");
     box.push("Orange");
     box.push("Grape");
     box.check();
+    box.test();
+}
+
+int main(int argc, const char * argv[])
+{
+    func();
+    
+    
     return 0;
 }

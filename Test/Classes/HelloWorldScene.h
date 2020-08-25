@@ -29,20 +29,28 @@ USING_NS_CC; //using namespace cocos2d
 
 #include "cocos2d.h"
 
+class ClippingScrollView;
+
 class HelloWorld : public Layer
 {
 private:
-    Layer* slimeLayer;
-    std::vector<Sprite*> slimes;
+    ClippingScrollView* clippingScrollView_;
+    
+public:
+    virtual bool onTouchBegan(Touch* touch, Event* event) override;
+    virtual void onTouchMoved(Touch* touch, Event* event) override;
+    virtual void onTouchEnded(Touch* touch, Event* event) override;
+    virtual void onTouchCancelled(Touch* touch, Event* event) override;
     
 public:
     static cocos2d::Scene* createScene();
     
-    virtual bool init();
+    virtual bool init() override;
     // implement the "static create()" method manually
     
     //메뉴 선택 시 콜백될 함수 정의 return은 void로, 인자는 Ref *sender 반드시!
     void menuCallback(Ref *sender);
+    void menuCallback2(Ref *sender);
     CREATE_FUNC(HelloWorld);
 };
 

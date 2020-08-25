@@ -25,8 +25,10 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 
-#define ScreenX 1080
-#define ScreenY 720
+#include "ClippingScrollView.h"
+
+#define ScreenX 1920
+#define ScreenY 1080
 
 USING_NS_CC;
 
@@ -57,59 +59,107 @@ bool HelloWorld::init()
         return false;
     }
     
-    for(int i = 0; i < 10; i++)
-    {
-        Sprite* slime = Sprite::create("image/slime/slime_normal.png");
-        slime->setScale(0.25, 0.25);
-        slime->setPosition(Vec2(ScreenX * 0.5, ScreenY * 0.5));
-        slimes.push_back(slime);
-        this->addChild(slime);
-    }
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
     
-    MenuItemImage* item_1 = MenuItemImage::create("image/slime/slime_normal.png", "image/slime/slime_snow.png", CC_CALLBACK_1(HelloWorld::menuCallback, this));
-//    MenuItemImage* item_2 = MenuItemImage::create("image/slime/slime_leaf.png", "image/slime/slime_flower.png", CC_CALLBACK_1(HelloWorld::menuCallback, this));
-//    item_2->setPosition(Vec2(0, -140));
-    Menu* menu = Menu::create(item_1, NULL);
+    MenuItemImage* btn_1 = MenuItemImage::create("image/test1.png", "image/test2.png", CC_CALLBACK_1(HelloWorld::menuCallback, this));
+    MenuItemImage* btn_2 = MenuItemImage::create("image/test3.png", "image/test4.png", CC_CALLBACK_1(HelloWorld::menuCallback2, this));
+    Menu* menu = Menu::create(btn_1, btn_2, NULL);
+    menu->alignItemsVertically();
+    menu->setPosition(ScreenX * 0.9, ScreenY * 0.9);
     this->addChild(menu);
-    menu->setPosition(Vec2(ScreenX * 0.08, ScreenY * 0.9));
-    
-    
-    Sprite* pSprite = Sprite::create("Image/Test2.png");
-    pSprite->setPosition(Vec2(0, 0));
-    pSprite->setVisible(true);
-    pSprite->setAnchorPoint(Vec2(0.5, 0.5));
-    this->addChild(pSprite);
-    
-//    auto action =
-//    pSprite->runAction(action);
-    
-    
-    
-//    auto btn_1 = MenuItemFont::create("메뉴1", CC_CALLBACK_1(HelloWorld::menuCallback, this));
-//    auto btn_2 = MenuItemImage::create("image/btn2.png", "image/btn1.png", CC_CALLBACK_1(HelloWorld::menuCallback, this));
-//    btn_2->setContentSize(Size(50, 50)); // 사이즈는 콜라이더와 연관있고, 이미지 크기와는 연관이 없다
-//    btn_2->setScale(0.5);
-//    auto menu = Menu::create(btn_1, btn_2, NULL); //메뉴의 마지막에는 NULL, 문자열처럼!
-//    menu->alignItemsVertically(); //안의 구성 요소를 수직으로 정렬
-////    menu->setPosition(Vec2(240, 160));
-//    menu->setAnchorPoint(Vec2(0.5, 0.5));
-//    this->addChild(menu);
-//
-//
-    //this->reorderChild(pSprite, 0);
 
+    clippingScrollView_ = ClippingScrollView::create(Direction::VERTICAL_DOWN, 10);
+    clippingScrollView_->setPosition(Vec2(ScreenX * 0.5, ScreenY * 0.5));
+    clippingScrollView_->setName("clippingScrollView");
+    this->addChild(clippingScrollView_);
     
+    
+        
     return true;
 }
+
 void HelloWorld::menuCallback(Ref *sender)
 {
-    
-    CCLOG("menuCallback");
-    for (Sprite* slime : slimes)
+    switch (random(0, 3))
     {
-        auto action = JumpBy::create(0.6, Vec2(random(-50, 50), random(-50, 50)), 20, 3);
-        slime->runAction(action);
+        case 0:
+        {
+            Sprite* spr = Sprite::create("image/test1.png");
+            clippingScrollView_->insertItem(spr);
+        }
+            break;
+        case 1:
+        {
+            Sprite* spr = Sprite::create("image/test2.png");
+            clippingScrollView_->insertItem(spr);
+        }
+            break;
+        case 2:
+        {
+            Sprite* spr = Sprite::create("image/test3.png");
+            clippingScrollView_->insertItem(spr);
+        }
+            break;
+        case 3:
+        {
+            Sprite* spr = Sprite::create("image/test4.png");
+            clippingScrollView_->insertItem(spr);
+        }
+            break;
+            
+        default:
+            break;
     }
-    //이벤트 발생
     
 }
+
+void HelloWorld::menuCallback2(Ref *sender)
+{
+//    clippingScrollView->releaseItem(random(0, 0));
+    clippingScrollView_->releaseItem(0);
+}
+
+bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    Point location = touch->getLocation();
+    
+    auto cSV = (ClippingScrollView*)this->getChildByName("clippingScrollView");
+    Rect rect = cSV->getSprite()->getBoundingBox();
+    rect.origin += cSV->getPosition();
+    
+    if (rect.containsPoint(location))
+    {
+        CCLOG ("터치");
+        cSV->setIsClicked(true);
+    }
+    else
+    {
+        CCLOG ("터치안됨");
+        cSV->setIsClicked(false);
+    }
+    cSV->setOrigin(location);
+    return true;
+}
+
+void HelloWorld::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    Point location = touch->getLocation();
+    auto cSV = (ClippingScrollView*)this->getChildByName("clippingScrollView");
+    cSV->moveByMouse(location);
+}
+
+void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    auto cSV = (ClippingScrollView*)this->getChildByName("clippingScrollView");
+    cSV->setIsClicked(false);
+    cSV->replace();
+}
+
+void HelloWorld::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+}
+
